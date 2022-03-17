@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +25,12 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function(){
 
     Route::prefix('cliente')->group(function(){
-        Route::get('/',function(){
-            return view('layouts.app_vue');
-        });
+        $controller = ClienteController::class;
+        Route::get('view',[$controller,'view'])->name('cliente');
+        Route::post('create',[$controller,'create']);
+        Route::get('read',[$controller,'read']);
+        Route::put('update',[$controller,'update']);
+        Route::delete('delete',[$controller,'delete']);
     });
 
 });
