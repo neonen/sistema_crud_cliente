@@ -2085,6 +2085,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -2180,6 +2184,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2187,16 +2234,25 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       cliente: new _Cliente__WEBPACK_IMPORTED_MODULE_0__["default"](),
-      // clientePesquisa: new Cliente(),
+      clientePesquisa: new _Cliente__WEBPACK_IMPORTED_MODULE_0__["default"](),
       clientes: [],
       base_url: window.location.origin,
-      erros: {}
+      erros: {},
+      tougle: true
     };
   },
   created: function created() {
     this.listar();
   },
   methods: {
+    novo: function novo() {
+      this.tougle = false;
+      this.limpar();
+    },
+    cancelar: function cancelar() {
+      this.tougle = true;
+      this.limpar();
+    },
     limpar: function limpar() {
       this.cliente = new _Cliente__WEBPACK_IMPORTED_MODULE_0__["default"]();
       this.erros = {};
@@ -2209,7 +2265,7 @@ __webpack_require__.r(__webpack_exports__);
         axios__WEBPACK_IMPORTED_MODULE_1___default().put("".concat(this.base_url, "/cliente/update"), this.cliente).then(function (res) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("Alterado com sucesso!", '', 'success');
 
-          _this.limpar();
+          _this.cancelar();
         })["catch"](function (erro) {
           console.error(erro.response);
           _this.erros = erro.response.data.errors;
@@ -2218,7 +2274,7 @@ __webpack_require__.r(__webpack_exports__);
         axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.base_url, "/cliente/create"), this.cliente).then(function (res) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("Inserido com sucesso!", '', 'success');
 
-          _this.limpar();
+          _this.cancelar();
         })["catch"](function (erro) {
           console.error(erro.response);
           _this.erros = erro.response.data.errors;
@@ -2228,7 +2284,7 @@ __webpack_require__.r(__webpack_exports__);
     listar: function listar() {
       var _this2 = this;
 
-      var params = this.cliente;
+      var params = this.clientePesquisa;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(this.base_url, "/cliente/read"), {
         params: params
       }).then(function (res) {
@@ -2236,6 +2292,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     selecionar: function selecionar(dado) {
+      this.tougle = false;
       this.cliente = dado;
     },
     deletar: function deletar(id) {
@@ -6735,8 +6792,25 @@ var render = function () {
     [
       _c(
         "v-app-bar",
-        { attrs: { app: "" } },
-        [_c("v-app-bar-title", [_vm._v("Sis Cliente")])],
+        { attrs: { app: "", color: "primary", dark: "" } },
+        [
+          _c("v-app-bar-title", [_vm._v("Sis Cliente")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-app-bar-nav-icon",
+            [
+              _c(
+                "v-btn",
+                { attrs: { icon: "", href: "/logout" } },
+                [_c("v-icon", [_vm._v("mdi-logout")])],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
         1
       ),
       _vm._v(" "),
@@ -6782,203 +6856,356 @@ var render = function () {
         [
           _c("v-card-title", [_vm._v("Clientes")]),
           _vm._v(" "),
-          _c(
-            "v-card-text",
-            [
-              _c(
-                "v-row",
+          _c("v-card-subtitle", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.tougle,
+                expression: "!tougle",
+              },
+            ],
+            domProps: {
+              textContent: _vm._s(_vm.cliente.id ? "Editando" : "Inserindo"),
+            },
+          }),
+          _vm._v(" "),
+          _vm.tougle
+            ? _c(
+                "tenplate",
                 [
                   _c(
-                    "v-col",
-                    { attrs: { cols: "12", md: "6" } },
+                    "v-card-text",
                     [
-                      _c("v-text-field", {
-                        attrs: {
-                          label: "Nome",
-                          "error-messages": _vm.erros.nome,
-                        },
-                        model: {
-                          value: _vm.cliente.nome,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.cliente, "nome", $$v)
-                          },
-                          expression: "cliente.nome",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-col",
-                    { attrs: { cols: "12", md: "6" } },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          label: "Cpf",
-                          "error-messages": _vm.erros.cpf,
-                        },
-                        model: {
-                          value: _vm.cliente.cpf,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.cliente, "cpf", $$v)
-                          },
-                          expression: "cliente.cpf",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-col",
-                    { attrs: { cols: "12", md: "6" } },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          label: "Contato",
-                          "error-messages": _vm.erros.contato,
-                        },
-                        model: {
-                          value: _vm.cliente.contato,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.cliente, "contato", $$v)
-                          },
-                          expression: "cliente.contato",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-col",
-                    { attrs: { cols: "12", md: "6" } },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          label: "Email",
-                          "error-messages": _vm.erros.email,
-                        },
-                        model: {
-                          value: _vm.cliente.email,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.cliente, "email", $$v)
-                          },
-                          expression: "cliente.email",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card-actions",
-            [
-              _c(
-                "v-btn",
-                { attrs: { color: "success" }, on: { click: _vm.salvar } },
-                [_vm._v("Salvar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                { attrs: { color: "primary" }, on: { click: _vm.listar } },
-                [_vm._v("Pesquisar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                { attrs: { color: "error" }, on: { click: _vm.limpar } },
-                [_vm._v("Cancelar")]
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card-text",
-            [
-              _c("v-simple-table", [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v("Id")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Nome")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("CPF")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Contato")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Email")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Ação")]),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.clientes, function (cliente) {
-                    return _c("tr", { key: cliente.id }, [
-                      _c("td", [_vm._v(_vm._s(cliente.id))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cliente.nome))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cliente.cpf))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cliente.contato))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cliente.email))]),
-                      _vm._v(" "),
                       _c(
-                        "td",
+                        "v-row",
                         [
                           _c(
-                            "v-btn",
-                            {
-                              attrs: { icon: "" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.selecionar(cliente)
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Nome",
+                                  "hide-details": "",
+                                  clearable: "",
                                 },
-                              },
-                            },
-                            [_c("v-icon", [_vm._v("mdi-pencil")])],
+                                model: {
+                                  value: _vm.clientePesquisa.nome,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.clientePesquisa, "nome", $$v)
+                                  },
+                                  expression: "clientePesquisa.nome",
+                                },
+                              }),
+                            ],
                             1
                           ),
                           _vm._v(" "),
                           _c(
-                            "v-btn",
-                            {
-                              attrs: { icon: "" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.deletar(cliente.id)
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Cpf",
+                                  "hide-details": "",
+                                  clearable: "",
                                 },
-                              },
-                            },
-                            [_c("v-icon", [_vm._v("mdi-delete")])],
+                                model: {
+                                  value: _vm.clientePesquisa.cpf,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.clientePesquisa, "cpf", $$v)
+                                  },
+                                  expression: "clientePesquisa.cpf",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Contato",
+                                  "hide-details": "",
+                                  clearable: "",
+                                },
+                                model: {
+                                  value: _vm.clientePesquisa.contato,
+                                  callback: function ($$v) {
+                                    _vm.$set(
+                                      _vm.clientePesquisa,
+                                      "contato",
+                                      $$v
+                                    )
+                                  },
+                                  expression: "clientePesquisa.contato",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", md: "6" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Email",
+                                  "hide-details": "",
+                                  clearable: "",
+                                },
+                                model: {
+                                  value: _vm.clientePesquisa.email,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.clientePesquisa, "email", $$v)
+                                  },
+                                  expression: "clientePesquisa.email",
+                                },
+                              }),
+                            ],
                             1
                           ),
                         ],
                         1
                       ),
-                    ])
-                  }),
-                  0
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: { click: _vm.novo },
+                        },
+                        [
+                          _c("v-icon", [_vm._v("mdi-plus")]),
+                          _vm._v("Adicionar"),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-btn", { on: { click: _vm.listar } }, [
+                        _vm._v("Pesquisar"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    [
+                      _c("v-simple-table", [
+                        _c("thead", [
+                          _c("tr", [
+                            _c("th", [_vm._v("Id")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Nome")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("CPF")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Contato")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Email")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Ação")]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.clientes, function (cliente) {
+                            return _c("tr", { key: cliente.id }, [
+                              _c("td", [_vm._v(_vm._s(cliente.id))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(cliente.nome))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(cliente.cpf))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(cliente.contato))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(cliente.email))]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { icon: "" },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.selecionar(cliente)
+                                        },
+                                      },
+                                    },
+                                    [_c("v-icon", [_vm._v("mdi-pencil")])],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { icon: "" },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.deletar(cliente.id)
+                                        },
+                                      },
+                                    },
+                                    [_c("v-icon", [_vm._v("mdi-delete")])],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                            ])
+                          }),
+                          0
+                        ),
+                      ]),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              )
+            : [
+                _c(
+                  "v-card-actions",
+                  [
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { color: "success", fab: "" },
+                        on: { click: _vm.salvar },
+                      },
+                      [_c("v-icon", [_vm._v("mdi-check")])],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { color: "error", fab: "" },
+                        on: { click: _vm.cancelar },
+                      },
+                      [_c("v-icon", [_vm._v("mdi-cancel")])],
+                      1
+                    ),
+                  ],
+                  1
                 ),
-              ]),
-            ],
-            1
-          ),
+                _vm._v(" "),
+                _c(
+                  "v-card-text",
+                  [
+                    _c(
+                      "v-row",
+                      [
+                        _c(
+                          "v-col",
+                          { attrs: { cols: "12", md: "6" } },
+                          [
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "Nome",
+                                "error-messages": _vm.erros.nome,
+                              },
+                              model: {
+                                value: _vm.cliente.nome,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.cliente, "nome", $$v)
+                                },
+                                expression: "cliente.nome",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-col",
+                          { attrs: { cols: "12", md: "6" } },
+                          [
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "Cpf",
+                                "error-messages": _vm.erros.cpf,
+                              },
+                              model: {
+                                value: _vm.cliente.cpf,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.cliente, "cpf", $$v)
+                                },
+                                expression: "cliente.cpf",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-col",
+                          { attrs: { cols: "12", md: "6" } },
+                          [
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "Contato",
+                                "error-messages": _vm.erros.contato,
+                              },
+                              model: {
+                                value: _vm.cliente.contato,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.cliente, "contato", $$v)
+                                },
+                                expression: "cliente.contato",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-col",
+                          { attrs: { cols: "12", md: "6" } },
+                          [
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "Email",
+                                "error-messages": _vm.erros.email,
+                              },
+                              model: {
+                                value: _vm.cliente.email,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.cliente, "email", $$v)
+                                },
+                                expression: "cliente.email",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
         ],
-        1
+        2
       ),
     ],
     1
