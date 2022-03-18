@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -12,9 +13,10 @@ class ClienteController extends Controller
         return view('page.cliente');
     }
     //CRUD
-    public function create(Request $request){
+    public function create(ClienteRequest $request){
         $cliente = new Cliente($request->input());
         $cliente->save();
+        return response($cliente);
     }
 
     public function read(Request $request){
@@ -30,19 +32,21 @@ class ClienteController extends Controller
                     ->when($request->email,function(Builder $query) use($request){
                         $query->where('email','like',"%$request->email%");
                     })
-                    ->paginate();
+                    ->get();
 
         return response($cliente);
     }
 
-    public function update(Request $request){
+    public function update(ClienteRequest $request){
         $cliente = Cliente::find($request->id);
         $cliente->fill($request->input());
         $cliente->update();
+        return response($cliente);
     }
 
     public function delete(Request $request){
         $cliente = Cliente::find($request->id);
         $cliente->delete();
+        return response($cliente);
     }
 }
